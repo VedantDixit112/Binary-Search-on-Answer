@@ -1,0 +1,28 @@
+class Solution {
+    public long minimumTime(int[] arr, int total) {
+        long low=1;
+        long high=(long)100000000000000L;
+        long res=0;
+        while(low<=high){
+            long mid=(low+(high-low)/2);
+            if(path(mid,arr,total)){
+                res=mid;
+                high=mid-1;
+            }
+            else{
+                low=mid+1;
+            }
+        }
+        return res;
+    }
+    public boolean path(long mid,int []arr,long total){
+        long count=0;
+        for(int l:arr){
+            count+=mid/(long)l;
+            if(count>=total){
+                return true;
+            }
+        }
+        return count>=total;
+    }
+}
