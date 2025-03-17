@@ -1,0 +1,34 @@
+class Solution {
+    public int minEatingSpeed(int[] arr, int h) {
+        int max=Integer.MIN_VALUE;
+        for(int l:arr){
+            max=Math.max(max,l);
+        }
+        int low=1;
+        int high=max;
+        int min=1243234613;
+        while(low<=high){
+            int mid=(low+(high-low)/2);
+            if(path(mid,h,arr)){
+                min=Math.min(min,mid);
+                high=mid-1;
+            }
+            else{
+                low=mid+1;
+            }
+        }
+        return min;
+    }
+    public boolean path(int k,int target,int []arr){
+        long count=0;
+        for(int l:arr){
+            if(l<=k){
+                count++;
+            }
+            else{
+                count+=l%k==0?l/k:l/k+1;
+            }
+        } 
+        return count<=target;
+    }
+}
