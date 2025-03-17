@@ -1,0 +1,38 @@
+class Solution {
+    int mt=Integer.MIN_VALUE;
+    public int minimizeArrayValue(int[] arr) {
+        int low=1;
+        int max=Integer.MIN_VALUE;
+        for(int l:arr){
+            max=Math.max(max,l);
+        }
+        int high=max;
+        int max1=Integer.MAX_VALUE;
+        while(low<=high){
+            int mid=(low+(high-low)/2);
+            if(path(mid,arr)){
+                max1=Math.min(max1,mid);
+                high=mid-1;
+            }
+            else{
+                low=mid+1;
+            }
+        }
+        return max1==2147483647?0:max1;
+    }
+    public boolean path(int mid,int []arr){
+        long []res=new long[arr.length];
+        int k=0;
+        for(int l:arr){
+            res[k++]=l;
+        }
+        for(int i=0;i<res.length-1;i++){
+            if(res[i]>mid){
+                return false;
+            }
+            long buff=mid-res[i];
+            res[i+1]=res[i+1]-buff;
+        }
+        return res[res.length-1]<=mid;
+    }
+}
