@@ -1,0 +1,40 @@
+class Solution {
+    public int shipWithinDays(int[] arr, int k) {
+        int sum=0;
+        int max=Integer.MIN_VALUE;
+        for(int i=0;i<arr.length;i++){
+            sum+=arr[i];
+            max=Math.max(arr[i],max);
+        }
+        if(k==arr.length){
+            return max;
+        }
+        int low=max;
+        int high=sum;
+        int ans=0;
+        while(low<=high){
+            int mid=low+(high-low)/2;
+            if(ispossible(arr,mid,k)==true){
+                ans=mid;
+                high=mid-1;
+            }
+            else{
+                low=mid+1;
+            }
+        }
+        return ans;
+        
+    }
+    public static boolean ispossible(int []arr,int mid,int m){
+        int value=0;
+        int day=1;
+        for(int i=0;i<arr.length;i++){
+            value+=arr[i];
+            if(value>mid){
+                day++;
+                value=arr[i];
+            }
+        }
+        return day<=m;
+    }
+}
