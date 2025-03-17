@@ -1,0 +1,30 @@
+class Solution {
+    public int maxDistance(int[] arr, int m) {
+        Arrays.sort(arr);
+        int low=1;
+        int res=0;
+        int high=arr[arr.length-1];
+        while(low<=high){
+            int mid=(low+(high-low)/2);
+            if(path(mid,arr,m)){
+                res=mid;
+                low=mid+1;
+            }
+            else{
+                high=mid-1;
+            }
+        }
+        return res;
+    }
+    public boolean path(int mid,int []arr,int m){
+        int count=1;
+        int val=arr[0];
+        for(int i=1;i<arr.length;i++){
+            if(arr[i]-val>=mid){
+                val=arr[i];
+                count++;
+            }
+        }
+        return count>=m;
+    }
+}
